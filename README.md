@@ -1,0 +1,1 @@
+# hisat_nafcompression
