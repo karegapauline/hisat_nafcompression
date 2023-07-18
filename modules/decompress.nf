@@ -3,15 +3,15 @@ process DECOMPRESS {
     publishDir params.outdir
 	
     input:
-    tuple val(name), path(compressed_reads)
+    tuple val(name), path(compressed_trimmed_reads)
 	
     output:
-    tuple val(name), path("${name}_*.fastq"), emit: sample_decompressed
+    tuple val(name), path("${name}_*.trimmed.fastq"), emit: sample2_decompressed
 	
     script:
     """
-    unnaf --fastq ${compressed_reads[0]} > ${name}_1.fastq
-    unnaf --fastq ${compressed_reads[1]} > ${name}_2.fastq
+    unnaf --fastq ${compressed_trimmed_reads[0]} > ${name}_1.trimmed.fastq
+    unnaf --fastq ${compressed_trimmed_reads[1]} > ${name}_2.trimmed.fastq
     
     
     """
