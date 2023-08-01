@@ -41,7 +41,6 @@ workflow {
         HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE.out, CHECK_STRANDNESS.out.first() )
     }
     SAMTOOLS( HISAT2_ALIGN.out.sample_sam )
-    
-}
-// CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_bam, params.reference_annotation ) //
+    CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_bam, params.reference_annotation )
+} //
 // compressed_tuple = compressed_reads_ch.map {name, paths-> tuple(name: name, read1: compressed_reads[0], read2: compressed_reads[1]) } as Comparable
