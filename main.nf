@@ -24,10 +24,10 @@ params.outdir = 'results'
 
 workflow {
     read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
-    strand_ch = CHECK_STRANDNESS( read_pairs_ch, params.reference_cdna, params.reference_annotation_ensembl )
+    //strand_ch = CHECK_STRANDNESS( read_pairs_ch, params.reference_cdna, params.reference_annotation_ensembl )
     // strand_ch.view()
-    FASTP( read_pairs_ch )
-    compressed_reads_ch = COMPRESS(FASTP.out.sample_trimmed)
+    //FASTP( read_pairs_ch )
+    compressed_reads_ch = COMPRESS(read_pairs_ch)
     compressed_reads_ch.view()
     decompressed_reads_ch = DECOMPRESS(compressed_reads_ch)
     decompressed_reads_ch.view()
