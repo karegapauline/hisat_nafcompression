@@ -20,8 +20,3 @@ process FASTP {
     """
 }
 
-// unnaf --fastq ${compressed_reads[0]} > ${name}_1.fastq
-// unnaf --fastq ${compressed_reads[1]} > ${name}_2.fastq
-//mkdir TMP2
-//  ennaf ${name}.R1.trimmed.fastq -o ${name}_1.trimmed.naf --temp-dir TMP2
-// ennaf ${name}.R2.trimmed.fastq -o ${name}_2.trimmed.naf --temp-dir TMP2

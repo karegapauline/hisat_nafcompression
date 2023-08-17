@@ -10,8 +10,8 @@ process DECOMPRESS {
 	
     script:
     """
-    unnaf --fastq ${reads[0]} > ${name}_1.trimmed.fastq
-    unnaf --fastq ${reads[1]} > ${name}_2.trimmed.fastq
+    unnaf ${reads[0]} -o  ${name}_1.fastq
+    unnaf ${reads[1]} -o  ${name}_2.fastq
     
     
     """

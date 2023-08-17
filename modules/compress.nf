@@ -10,9 +10,8 @@ process COMPRESS {
 	
     script:
     """
-    mkdir mytemp
-    ennaf -o ${name}_1.trimmed.naf --temp-dir mytemp ${reads[0]} 
-    ennaf -o ${name}_2.trimmed.naf --temp-dir mytemp ${reads[1]} 
+    ennaf  ${reads[0]} -o ${name}_1.naf --temp-dir .
+    ennaf  ${reads[1]} -o ${name}_2.naf --temp-dir .
     
     
     """
