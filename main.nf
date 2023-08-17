@@ -27,10 +27,8 @@ workflow {
     //strand_ch = CHECK_STRANDNESS( read_pairs_ch, params.reference_cdna, params.reference_annotation_ensembl )
     // strand_ch.view()
     FASTP( read_pairs_ch )
-    compressed_reads_ch = COMPRESS(FASTP.out.sample_trimmed)
-    compressed_reads_ch.view()
-    decompressed_reads_ch = DECOMPRESS(compressed_reads_ch)
-    decompressed_reads_ch.view()
+    COMPRESS(FASTP.out.sample_trimmed)
+    DECOMPRESS(COMPRESS.out)
   //  if (params.mode == "minimum_genome_build") {
    //     HISAT2_INDEX_REFERENCE_MINIMAL( params.reference_genome )
    //     HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE_MINIMAL.out, CHECK_STRANDNESS.out.first() )}
