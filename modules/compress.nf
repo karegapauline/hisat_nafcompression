@@ -1,18 +1,18 @@
 process COMPRESS {
     label 'compress'
     publishDir params.outdir
-	
+    
     input:
-    tuple val(name), path(trimmed_reads)
+    tuple val(name), path(reads)
 	
     output:
-    tuple val(name), path("${name}_*.trimmed.naf"), emit: sample2_compressed
+    tuple val(name), path("${name}*.naf"), emit: compressed_reads
 	
     script:
     """
     mkdir mytemp
-    ennaf -o ${name}_1.trimmed.naf --temp-dir mytemp ${trimmed_reads[0]} 
-    ennaf -o ${name}_2.trimmed.naf --temp-dir mytemp ${trimmed_reads[1]} 
+    ennaf -o ${name}_1.trimmed.naf --temp-dir mytemp ${reads[0]} 
+    ennaf -o ${name}_2.trimmed.naf --temp-dir mytemp ${reads[1]} 
     
     
     """
