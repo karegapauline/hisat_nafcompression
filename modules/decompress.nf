@@ -12,9 +12,7 @@ process DECOMPRESS {
     """
     unnaf ${reads[0]} -o  ${name}_1.fastq
     unnaf ${reads[1]} -o  ${name}_2.fastq
-    
-    
     """
-    
-   }
-   
+}
+
+
