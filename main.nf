@@ -24,21 +24,20 @@ params.outdir = 'results'
 
 workflow {
     read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
-    //strand_ch = CHECK_STRANDNESS( read_pairs_ch, params.reference_cdna, params.reference_annotation_ensembl )
-    // strand_ch.view()
+    strand_ch = CHECK_STRANDNESS( read_pairs_ch, params.reference_cdna, params.reference_annotation_ensembl )
+    strand_ch.view()
     FASTP( read_pairs_ch )
     COMPRESS(FASTP.out.sample_trimmed)
     DECOMPRESS(COMPRESS.out)
-  //  if (params.mode == "minimum_genome_build") {
-   //     HISAT2_INDEX_REFERENCE_MINIMAL( params.reference_genome )
-   //     HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE_MINIMAL.out, CHECK_STRANDNESS.out.first() )}
-   // if (params.mode == "exon_splice_site") {
-   //     EXTRACT_EXONS( params.reference_annotation )
-   //     EXTRACT_SPLICE_SITES( params.reference_annotation )
-   //     HISAT2_INDEX_REFERENCE( params.reference_genome, EXTRACT_EXONS.out, EXTRACT_SPLICE_SITES.out )
-//    HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE.out, CHECK_STRANDNESS.out.first() )
- //   }
-  //  SAMTOOLS( HISAT2_ALIGN.out.sample_sam )
-  //  CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_bam, params.reference_annotation )
-} //
-// compressed_tuple = compressed_reads_ch.map {name, paths-> tuple(name: name, read1: compressed_reads[0], read2: compressed_reads[1]) } as Comparable
+    if (params.mode == "minimum_genome_build") {
+       HISAT2_INDEX_REFERENCE_MINIMAL( params.reference_genome )
+       HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE_MINIMAL.out, CHECK_STRANDNESS.out.first() )}
+    if (params.mode == "exon_splice_site") {
+        EXTRACT_EXONS( params.reference_annotation )
+        EXTRACT_SPLICE_SITES( params.reference_annotation )
+        HISAT2_INDEX_REFERENCE( params.reference_genome, EXTRACT_EXONS.out, EXTRACT_SPLICE_SITES.out )
+    HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE.out, CHECK_STRANDNESS.out.first() )
+   }
+    SAMTOOLS( HISAT2_ALIGN.out.sample_sam )
+    CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_bam, params.reference_annotation )
+} 
