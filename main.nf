@@ -28,7 +28,7 @@ workflow {
     strand_ch.view()
     FASTP( read_pairs_ch )
     COMPRESS(FASTP.out.sample_trimmed)
-    DECOMPRESS(COMPRESS.out)
+    decompressed_reads_ch = DECOMPRESS(COMPRESS.out)
     if (params.mode == "minimum_genome_build") {
        HISAT2_INDEX_REFERENCE_MINIMAL( params.reference_genome )
        HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE_MINIMAL.out, CHECK_STRANDNESS.out.first() )}
