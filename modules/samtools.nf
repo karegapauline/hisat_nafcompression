@@ -4,7 +4,7 @@ process SAMTOOLS {
     
     input:
     tuple val(sample_name), path(sam_file)
-    path reference_genome
+    path(reference_genome)
     
     output:
     path("${sam_file}.sorted.bam"), emit: sample_bam 
