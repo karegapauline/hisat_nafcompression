@@ -39,5 +39,5 @@ workflow {
     HISAT2_ALIGN( decompressed_reads_ch, HISAT2_INDEX_REFERENCE.out, CHECK_STRANDNESS.out.first() )
    }
     SAMTOOLS( params.reference_genome, HISAT2_ALIGN.out.sample_sam )
-    CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_bam, params.reference_annotation )
+    CUFFLINKS( CHECK_STRANDNESS.out, SAMTOOLS.out.sample_cram, params.reference_annotation )
 } 
