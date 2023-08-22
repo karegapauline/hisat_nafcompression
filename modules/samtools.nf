@@ -10,7 +10,7 @@ process SAMTOOLS {
     
     script:
     """
-    samtools view -T ${reference_genome} -C -o ${sample_name}.sorted.cram ${sam_file}
+    samtools view -T ${reference_genome} -C -o ${sam_file}.sorted.cram ${sam_file}
     """
     
 }
