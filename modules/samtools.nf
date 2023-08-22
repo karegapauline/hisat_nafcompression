@@ -3,15 +3,14 @@ process SAMTOOLS {
     publishDir params.outdir
     
     input:
-    tuple val(sample_name), path(sam_file)
-    path(reference_genome)
+    tuple val(sample_name), path(sam_file), path(reference_genome)
     
     output:
     path("${sam_file}.sorted.cram"), emit: sample_cram 
     
     script:
     """
-    samtools view -T ${reference_genome} -C -o ${sam_file}.sorted.cram ${sam_file}
+    samtools view -T ${reference_genome} -C -o ${sample_name}.sorted.cram ${sam_file}
     """
     
 }
